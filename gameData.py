@@ -138,6 +138,12 @@ def mwrogueDataGet(gameId):
     for i in range(10):
         newdata = []
         newdata.append(mw_json["participants"][i].get("champLevel"))
+        if i < 5:
+            opp_id = i + 5
+        else:
+            opp_id = i - 5
+        newdata.append(mw_json["participants"][opp_id].get("riotIdGameName").split(" ")[1])
+        newdata.append(mw_json["participants"][opp_id].get("championName"))
         newdata.append(mw_json["participants"][i]["challenges"].get("maxCsAdvantageOnLaneOpponent"))
         newdata.append(mw_json["participants"][i]["challenges"].get("maxLevelLeadLaneOpponent"))
         newdata.append(mw_json["participants"][i]["challenges"].get("killsNearEnemyTurret"))
@@ -206,213 +212,215 @@ def mwrogueDataGet(gameId):
 def datasetHeader():
     header = [
         # Data from Orcales
-        "gameId", #1
-        "league", #2
-        "year", #3
-        "split", #4
-        "playoffs", #5
-        "date", #6
-        "game", #7
-        "patch", #8
-        "participantId", #9
-        "side", #10
-        "position", #11
-        "playerName", #12
-        "teamName", #13
-        "champion", #14
-        "ban1", #15
-        "ban2", #16
-        "ban3", #17
-        "ban4", #18
-        "ban5", #19
-        "opp_ban1", #20
-        "opp_ban2", #21
-        "opp_ban3", #22
-        "opp_ban4", #23
-        "opp_ban5", #24
-        "pick1", #25
-        "pick2", #26
-        "pick3", #27
-        "pick4", #28
-        "pick5", #29
-        "opp_pick1", #30
-        "opp_pick2", #31
-        "opp_pick3", #32
-        "opp_pick4", #33
-        "opp_pick5", #34
-        "gamelength", #35
-        "win", #36
-        "kills", #37
-        "deaths", #38
-        "assists", #39
-        "teamKills", #40
-        "teamDeaths", #41
-        "doublekills", #42
-        "triplekills", #43
-        "quadrakills", #44
-        "pentakills", #45
-        "firstblood", #46
-        "firstbloodKill", #47
-        "firstbloodAssist", #48
-        "firstbloodVictim", #49
-        "teamKpm", #50
-        "ckpm", #51
-        "firstdragon", #52
-        "dragons", #53
-        "opp_dragons", #54
-        "elementalDrakes", #55
-        "opp_elementalDrakes", #56
-        "infernals", #57
-        "mountains", #58
-        "clouds", #59
-        "oceans", #60
-        "chemtechs", #61
-        "hextechs", #62
-        "elders", #63
-        "opp_elders", #64
-        "firstherald", #65
-        "heralds", #66
-        "opp_heralds", #67
-        "voidgrubs", #68
-        "opp_voidgrubs", #69
-        "firstBaron", #70
-        "barons", #71
-        "opp_barons", #72
-        "firsttower", #73
-        "towers", #74
-        "opp_towers", #75
-        "firstMidTower", #76
-        "firstToThreeTowers", #77
-        "turretplates", #78
-        "opp_turretplates", #79
-        "inhibitors", #80
-        "opp_inhibitors", #81
-        "damageToChampions", #82
-        "dpm", #83
-        "damageShare", #84
-        "damageTakenPerMinute", #85
-        "damageMitigatedPerMinute", #86
-        "wardsPlaced", #87
-        "wpm", #88
-        "wardsKilled", #89
-        "wcpm", #90
-        "controlwardsBought", #91
-        "visionscore", #92
-        "vspm", #93
-        "totalgold", #94
-        "earnedGold", #95
-        "earnedGpm", #96
-        "earnedGoldShare", #97
-        "goldSpent", #98
-        "totalCs", #99
-        "minionKills", #100
-        "monsterKills", #101
-        "cspm", #102
-        "goldAt10", #103
-        "xpAt10", #104
-        "csAt10", #105
-        "opp_goldAt10", #106
-        "opp_xpAt10", #107
-        "opp_csAt10", #108
-        "golddiffAt10", #109
-        "xpdiffAt10", #110
-        "csdiffAt10", #111
-        "killsAt10", #112
-        "assistsAt10", #113
-        "deathsAt10", #114
-        "opp_killsAt10", #115
-        "opp_assistsAt10", #116
-        "opp_deathsAt10", #117
-        "goldAt15", #118
-        "xpAt15", #119
-        "csAt15", #120
-        "opp_goldAt15", #121
-        "opp_xpAt15", #122
-        "opp_csAt15", #123
-        "golddiffAt15", #124
-        "xpdiffAt15", #125
-        "csdiffAt15", #126
-        "killsAt15", #127
-        "assistsAt15", #128
-        "deathsAt15", #129
-        "opp_killsAt15", #130
-        "opp_assistsAt15", #131
-        "opp_deathsAt15", #132
-        "goldAt20", #133
-        "xpAt20", #134
-        "csAt20", #135
-        "opp_goldAt20", #136
-        "opp_xpAt20", #137
-        "opp_csAt20", #138
-        "golddiffAt20", #139
-        "xpdiffAt20", #140
-        "csdiffAt20", #141
-        "killsAt20", #142
-        "assistsAt20", #143
-        "deathsAt20", #144
-        "opp_killsAt20", #145
-        "opp_assistsAt20", #146
-        "opp_deathsAt20", #147
-        "goldAt25", #148
-        "xpAt25", #149
-        "csAt25", #150
-        "opp_goldAt25", #151
-        "opp_xpAt25", #152
-        "opp_csAt25", #153
-        "golddiffAt25", #154
-        "xpdiffAt25", #155
-        "csdiffAt25", #156
-        "killsAt25", #157
-        "assistsAt25", #158
-        "deathsAt25", #159
-        "opp_killsAt25", #160
-        "opp_assistsAt25", #161
-        "opp_deathsAt25", #162
+        "gameId",
+        "league",
+        "year",
+        "split", 
+        "playoffs", 
+        "date", 
+        "game", 
+        "patch", 
+        "participantId", 
+        "side",
+        "position", 
+        "playerName",
+        "teamName",
+        "champion", 
+        "ban1", 
+        "ban2", 
+        "ban3", 
+        "ban4", 
+        "ban5",
+        "opp_ban1", 
+        "opp_ban2", 
+        "opp_ban3", 
+        "opp_ban4", 
+        "opp_ban5", 
+        "pick1", 
+        "pick2",
+        "pick3", 
+        "pick4", 
+        "pick5", 
+        "opp_pick1", 
+        "opp_pick2",
+        "opp_pick3", 
+        "opp_pick4", 
+        "opp_pick5", 
+        "gamelength", 
+        "win", 
+        "kills", 
+        "deaths", 
+        "assists", 
+        "teamKills", 
+        "teamDeaths", 
+        "doublekills", 
+        "triplekills", 
+        "quadrakills", 
+        "pentakills", 
+        "firstblood", 
+        "firstbloodKill", 
+        "firstbloodAssist", 
+        "firstbloodVictim",
+        "teamKpm",
+        "ckpm",
+        "firstdragon",
+        "dragons",
+        "opp_dragons",
+        "elementalDrakes",
+        "opp_elementalDrakes",
+        "infernals",
+        "mountains",
+        "clouds",
+        "oceans",
+        "chemtechs",
+        "hextechs",
+        "elders",
+        "opp_elders",
+        "firstherald", 
+        "heralds",
+        "opp_heralds",
+        "voidgrubs",
+        "opp_voidgrubs",
+        "firstBaron", 
+        "barons",
+        "opp_barons",
+        "firsttower", 
+        "towers", 
+        "opp_towers",
+        "firstMidTower",
+        "firstToThreeTowers",
+        "turretplates",
+        "opp_turretplates", 
+        "inhibitors",
+        "opp_inhibitors",
+        "damageToChampions",
+        "dpm",
+        "damageShare",
+        "damageTakenPerMinute",
+        "damageMitigatedPerMinute", 
+        "wardsPlaced", 
+        "wpm", 
+        "wardsKilled", 
+        "wcpm", 
+        "controlwardsBought", 
+        "visionscore",
+        "vspm", 
+        "totalgold", 
+        "earnedGold",
+        "earnedGpm", 
+        "earnedGoldShare", 
+        "goldSpent",
+        "totalCs", 
+        "minionKills", 
+        "monsterKills", 
+        "cspm", 
+        "goldAt10",
+        "xpAt10", 
+        "csAt10", 
+        "opp_goldAt10", 
+        "opp_xpAt10",
+        "opp_csAt10",
+        "golddiffAt10",
+        "xpdiffAt10",
+        "csdiffAt10",
+        "killsAt10",
+        "assistsAt10",
+        "deathsAt10",
+        "opp_killsAt10",
+        "opp_assistsAt10",
+        "opp_deathsAt10", 
+        "goldAt15",
+        "xpAt15",
+        "csAt15",
+        "opp_goldAt15",
+        "opp_xpAt15",
+        "opp_csAt15",
+        "golddiffAt15",
+        "xpdiffAt15",
+        "csdiffAt15",
+        "killsAt15",
+        "assistsAt15",
+        "deathsAt15",
+        "opp_killsAt15",
+        "opp_assistsAt15",
+        "opp_deathsAt15",
+        "goldAt20",
+        "xpAt20",
+        "csAt20",
+        "opp_goldAt20",
+        "opp_xpAt20",
+        "opp_csAt20",
+        "golddiffAt20",
+        "xpdiffAt20",
+        "csdiffAt20",
+        "killsAt20",
+        "assistsAt20",
+        "deathsAt20",
+        "opp_killsAt20",
+        "opp_assistsAt20",
+        "opp_deathsAt20",
+        "goldAt25",
+        "xpAt25",
+        "csAt25",
+        "opp_goldAt25",
+        "opp_xpAt25",
+        "opp_csAt25",
+        "golddiffAt25",
+        "xpdiffAt25",
+        "csdiffAt25",
+        "killsAt25",
+        "assistsAt25",
+        "deathsAt25",
+        "opp_killsAt25",
+        "opp_assistsAt25",
+        "opp_deathsAt25",
     
     # Data from mwrogue
-        "championLevel", #163
-        "maxCsAdvantageOnLaneOpponent", #164
-        "maxLevelLeadLaneOpponent", #165
-        "killsNearEnemyTurret", #166
-        "killsUnderOwnTurret", #167
-        "soloKills", #168
-        "damageDealtToTurrets", #169
-        "firstTurretKilledTime", #170
-        "stealthWardsPlaced", #171
-        "controlWardsPlaced", #172
-        "detectorWardsPlaced", #173
-        "wardsKilledBefore20M", #174
-        "controlWardTimeCoverageInRiverOrEnemyHalf", #175
-        "wardsGuarded", #176
-        "epicMonsterSteals", #177
-        "jungleCsBefore10Minutes", #178
-        "initialCrabCount", #179
-        "scuttleCrabKills", #180
-        "totalAllyJungleMinionsKilled", #181
-        "totalEnemyJungleMinionsKilled", #182
-        "completeSupportItemFirst", #183
-        "saveAllyFromDeath", #184
-        "totalDamageShieldedOnTeammates", #185
-        "totalHealsOnTeammates", #186
-        "totalTimeCCDealt", #187
-        "effectiveHealAndShielding", #188
-        "enemyChampionImmobilizations", #189
-        "skillshotsHit", #190
-        "skillshotsDodged", #191
-        "item1", #192
-        "item2", #193
-        "item3", #194
-        "item4", #195
-        "item5", #196
-        "item6", #197
-        "rune1", #198
-        "rune2", #199
-        "rune3", #200
-        "rune4", #201
-        "rune5", #202
-        "rune6", #203
-        "featsOfStrength", #204
-        "atakhanKills" #205
+        "championLevel",
+        "opp_playerName",
+        "opp_champion",
+        "maxCsAdvantageOnLaneOpponent",
+        "maxLevelLeadLaneOpponent",
+        "killsNearEnemyTurret",
+        "killsUnderOwnTurret",
+        "soloKills",
+        "damageDealtToTurrets",
+        "firstTurretKilledTime",
+        "stealthWardsPlaced",
+        "controlWardsPlaced",
+        "detectorWardsPlaced",
+        "wardsKilledBefore20M",
+        "controlWardTimeCoverageInRiverOrEnemyHalf",
+        "wardsGuarded",
+        "epicMonsterSteals",
+        "jungleCsBefore10Minutes",
+        "initialCrabCount",
+        "scuttleCrabKills",
+        "totalAllyJungleMinionsKilled",
+        "totalEnemyJungleMinionsKilled",
+        "completeSupportItemFirst",
+        "saveAllyFromDeath",
+        "totalDamageShieldedOnTeammates",
+        "totalHealsOnTeammates",
+        "totalTimeCCDealt",
+        "effectiveHealAndShielding",
+        "enemyChampionImmobilizations",
+        "skillshotsHit",
+        "skillshotsDodged",
+        "item1",
+        "item2",
+        "item3",
+        "item4",
+        "item5",
+        "item6",
+        "rune1",
+        "rune2",
+        "rune3",
+        "rune4",
+        "rune5",
+        "rune6",
+        "featsOfStrength",
+        "atakhanKills"
     ]
     return header
 
