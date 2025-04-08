@@ -427,8 +427,11 @@ def datasetHeader():
     return header
 
 if __name__ == "__main__":
+    finishedTournament = [
+        "LCK 2024 Spring", "LCK 2024 Spring Playoffs", "LCK 2024 Summer", "LCK 2024 Summer Playoffs", "LCK 2024 Regional Finals"
+    ]
+
     tournament = [
-        "LCK 2024 Spring", "LCK 2024 Spring Playoffs", "LCK 2024 Summer", "LCK 2024 Summer Playoffs", "LCK 2024 Regional Finals",
         # "LEC 2024 Winter", "LEC 2024 Winter Playoffs", "LEC 2024 Spring", "LEC 2024 Spring Playoffs", "LEC 2024 Summer", "LEC 2024 Summer Playoffs", "LEC 2024 Season Finals",
         # "LCS 2024 Spring", "LCS 2024 Spring Playoffs", "LCS 2024 Summer", "LCS 2024 Championship",
         # "PCS 2024 Spring", "PCS 2024 Spring Playoffs", "PCS 2024 Summer", "PCS 2024 Summer Playoffs",
